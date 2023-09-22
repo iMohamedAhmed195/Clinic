@@ -6,6 +6,7 @@ import 'package:clinic/core/services/end_point.dart';
 import 'package:clinic/feature/signup_features/data/reggister_model/register_model.dart';
 import 'package:clinic/feature/signup_features/data/register_repo/register_repo.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 class RegisterRepoImpl extends RegisterRepo {
 
@@ -30,7 +31,10 @@ class RegisterRepoImpl extends RegisterRepo {
       registerModel = RegisterModel.fromJson(value.data);
        response =  right(registerModel);
     }).catchError((error) {
-         response =   left(ServerFailure());
+      if(error is DioException){
+        response =   left(ServerFailure.fromDioException(error));
+      }
+      // return left(ServerFailure(error.toString()));
     });
    return response ;
   }
