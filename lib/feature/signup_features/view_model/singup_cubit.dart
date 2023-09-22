@@ -17,4 +17,5 @@ class SignUpCubit extends Cubit<SignUpState> {
   TextEditingController confirmPasswordController = TextEditingController() ;
   var formKey = GlobalKey<FormState>();
 
+
 }
