@@ -8,7 +8,7 @@ class DoctorDetailsModel {
 
   DoctorDetailsModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     status = json['status'];
     code = json['code'];
   }
@@ -58,9 +58,9 @@ class Data {
     description = json['description'];
     degree = json['degree'];
     specialization = json['specialization'] != null
-        ? new Specialization.fromJson(json['specialization'])
+        ? Specialization.fromJson(json['specialization'])
         : null;
-    city = json['city'] != null ? new City.fromJson(json['city']) : null;
+    city = json['city'] != null ? City.fromJson(json['city']) : null;
     appointPrice = json['appoint_price'];
     startTime = json['start_time'];
     endTime = json['end_time'];
@@ -94,7 +94,7 @@ class City {
     id = json['id'];
     name = json['name'];
     governrate = json['governrate'] != null
-        ? new Specialization.fromJson(json['governrate'])
+        ? Specialization.fromJson(json['governrate'])
         : null;
   }
 

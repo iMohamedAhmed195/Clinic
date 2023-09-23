@@ -18,7 +18,7 @@ class ServerFailure extends Failure{
       case DioExceptionType.receiveTimeout:
         return ServerFailure('receive time out');
       case DioExceptionType.badResponse:
-        return ServerFailure.fromResponse(dioException.response!.statusCode,dioException.response!.data );
+        return ServerFailure.fromResponse(dioException.response!.statusCode,dioException.response!.data  );
       case DioExceptionType.cancel:
       return ServerFailure('cancel time out');
       case DioExceptionType.connectionError:
@@ -38,7 +38,9 @@ class ServerFailure extends Failure{
   factory ServerFailure.fromResponse(int? statusCode , dynamic response){
     //hena 7ot el error 3la 7sb el etfak m3 bta3 el back end hyrg3 ehh
     if(statusCode ==  422){
-      return ServerFailure(response['message']);
+
+      return ServerFailure(response);
+
     }else if(statusCode == 404){
       return ServerFailure('your request not found , please try again later');
     }else if(statusCode == 500){

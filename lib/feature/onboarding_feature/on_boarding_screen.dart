@@ -24,7 +24,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Material get _signupButton {
     return Material(
       borderRadius: defaultProceedButtonBorderRadius,
-      color: Color(0xff174068),
+      color: const Color(0xff174068),
       child: InkWell(
         borderRadius: defaultProceedButtonBorderRadius,
         onTap: () {
@@ -77,10 +77,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           widget: SafeArea(
             child: Column(
               children: [
-                Container(
-                  child: Image(image: AssetImage('assets/images/1.jpg',)),
+                SizedBox(
                   width: double.infinity,
                   height: ScreenSize.screenHeight*0.4,
+                  child: const Image(image: AssetImage('assets/images/1.jpg',)),
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35.0),
@@ -123,10 +123,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           widget: SafeArea(
             child: Column(
               children: [
-                Container(
-                    child: Image(image: AssetImage('assets/images/2.jpg',)),
+                SizedBox(
                     width: double.infinity,
                     height: ScreenSize.screenHeight*0.4,
+                    child: const Image(image: AssetImage('assets/images/2.jpg',)),
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35.0),
@@ -169,10 +169,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           widget: SafeArea(
             child: Column(
               children: [
-                Container(
-                  child: Image(image: AssetImage('assets/images/3.jpg',)),
+                SizedBox(
                   width: double.infinity,
                   height: ScreenSize.screenHeight*0.4,
+                  child: const Image(image: AssetImage('assets/images/3.jpg',)),
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35.0),
@@ -218,7 +218,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         startPageIndex: 0,
         footerBuilder: (context, dragDistance, pagesLength, setIndex) {
           return DecoratedBox(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xff174068),
             ),
             child: ColoredBox(
@@ -237,11 +237,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         ),
                         activeIndicator: ActiveIndicator(
                           borderWidth: ScreenSize.screenWidth*0.005,
-                          color: Color(0xff174068),
+                          color: const Color(0xff174068),
                         ),
                         closedIndicator: ClosedIndicator(
                             borderWidth: ScreenSize.screenWidth*0.005,
-                            color: Color(0xff174068),
+                            color: const Color(0xff174068),
                         )
                       ),
                     ),

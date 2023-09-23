@@ -1,9 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:clinic/core/services/dio_helper.dart';
 import 'package:clinic/feature/doctor_details_feature/data/details_doctor_model/details_doctor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 part 'doctor_details_state.dart';
 

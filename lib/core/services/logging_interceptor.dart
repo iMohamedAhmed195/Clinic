@@ -31,6 +31,7 @@ class LoggingInterceptor extends InterceptorsWrapper {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     errorMessage = err.response!.statusMessage;
+
     log("!!! API ERROR [${err.response?.statusCode}] => path: ${err.requestOptions.path}");
     debugPrint("error message: ${err.message}\nresponse: ${err.response}");
     return super.onError(err, handler);

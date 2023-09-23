@@ -1,6 +1,6 @@
 import 'package:clinic/core/constants/assets.dart';
 import 'package:clinic/core/constants/styles.dart';
-import 'package:clinic/core/widget/custom_time.dart';
+import 'package:clinic/feature/doctor_details_feature/presentation/view/widget/custom_time.dart';
 import 'package:clinic/feature/doctor_details_feature/presentation/doctor_details_cubit/doctor_details_cubit.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -44,9 +44,9 @@ class DoctorDetailsView extends StatelessWidget {
                       Opacity(
                         opacity: 0.7,
                         child: Padding(
-                          padding: EdgeInsets.all(12.0),
+                          padding: const EdgeInsets.all(12.0),
                           child: Text(cubit.doctorDetailsModel!.data!.name!,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 34,
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xff030E19)),
@@ -54,10 +54,10 @@ class DoctorDetailsView extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(12.0),
                         child: Text(
                           cubit.doctorDetailsModel!.data!.description!,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
                               color: Color(0xff030E19)),
@@ -136,7 +136,7 @@ class DoctorDetailsView extends StatelessWidget {
                           itemCount: cubit.lastTime.length,
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
@@ -161,7 +161,7 @@ class DoctorDetailsView extends StatelessWidget {
                     ],
                   );
                 },
-                fallback: (BuildContext context) { return Center(child: CircularProgressIndicator(),); },
+                fallback: (BuildContext context) { return const Center(child: CircularProgressIndicator(),); },
 
               ),
             );

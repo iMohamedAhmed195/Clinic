@@ -1,9 +1,8 @@
-
 import 'package:clinic/core/constants/assets.dart';
-import 'package:clinic/core/services/app_reouter.dart';
 import 'package:clinic/feature/splash_feature/splash_view_module/Widget/sliding_text.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+
 
 
 class SplashViewBody extends StatefulWidget {
@@ -43,7 +42,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void initNavigateToHomeView(){
     Future.delayed(const Duration(seconds: 2),(){
 
-       GoRouter.of(context).push(AppRouter.kOnboarding);
+       // GoRouter.of(context).push(AppRouter.kRegister);
     });
   }
 
@@ -54,7 +53,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
+          SizedBox(
             height: 220,
             width: 190,
             child: Image.asset(AssetsData.logo,),
