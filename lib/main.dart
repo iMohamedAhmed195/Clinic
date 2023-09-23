@@ -1,7 +1,10 @@
 import 'package:clinic/core/services/app_reouter.dart';
+import 'package:clinic/core/services/dio_helper.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  DioHelper.init();
   runApp(const MyApp());
 }
 

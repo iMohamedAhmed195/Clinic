@@ -1,6 +1,8 @@
+import 'package:clinic/core/services/dio_helper.dart';
 import 'package:clinic/core/widget/custom_button.dart';
 import 'package:clinic/core/widget/custom_text_feild.dart';
 import 'package:clinic/core/widget/custom_text_sec_login.dart';
+import 'package:clinic/feature/signup_features/data/register_repo/register_repo_impl.dart';
 import 'package:clinic/feature/signup_features/view_model/singup_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,9 +13,15 @@ class SignUpBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   BlocProvider(
-      create: (BuildContext context) => SignUpCubit(),
+      create: (BuildContext context) => SignUpCubit(RegisterRepoImpl()),
       child: BlocConsumer<SignUpCubit , SignUpState>(
-        listener: (BuildContext context, Object? state) {  },
+        listener: (BuildContext context, Object? state) {
+          if (state is SignupSuccess){
+            print('you are success know');
+          }else if (state is SignupError){
+            print('there is an error');
+          }
+        },
         builder: (BuildContext context, state) {
           var cubit = SignUpCubit.get(context);
           return Scaffold(
@@ -61,7 +69,19 @@ class SignUpBody extends StatelessWidget {
                     ),
                     CustomButton(function: (){
                       if(cubit.formKey.currentState!.validate()){
+                        print(cubit.nameController.text);
+                        print(cubit.emailController.text);
+                        print(cubit.phoneController.text,);
+                        print(cubit.passwordController.text);
+                        print(cubit.confirmPasswordController.text);
 
+                       cubit.registerApp(
+                           name:cubit.nameController.text,
+                           email: cubit.emailController.text,
+                           phone: cubit.phoneController.text,
+                           gender: '0',
+                           password: cubit.passwordController.text,
+                           confirmPassword: cubit.confirmPasswordController.text);
                       }
                     }, textButton: 'Register Now',)
                   ],

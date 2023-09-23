@@ -1,5 +1,7 @@
 
+import 'package:clinic/core/constants/assets.dart';
 import 'package:clinic/core/services/app_reouter.dart';
+import 'package:clinic/feature/splash_feature/splash_view_module/Widget/sliding_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -41,26 +43,26 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void initNavigateToHomeView(){
     Future.delayed(const Duration(seconds: 2),(){
 
-       GoRouter.of(context).push(AppRouter.kSignUp);
+       GoRouter.of(context).push(AppRouter.kOnboarding);
     });
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return const  Column(
+    return   Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Container(
-          //   height: 220,
-          //   width: 190,
-          //   child: Image.asset(AssetsData.logo,),
-          // ),
-          // const SizedBox(
-          //   height: 15,
-          // ),
-          // SlidingText(slidingAnimation: slidingAnimation),
+          Container(
+            height: 220,
+            width: 190,
+            child: Image.asset(AssetsData.logo,),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          SlidingText(slidingAnimation: slidingAnimation),
         ]);
   }
 }

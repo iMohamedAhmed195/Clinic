@@ -11,7 +11,7 @@ import 'package:dio/dio.dart';
 class RegisterRepoImpl extends RegisterRepo {
 
   RegisterModel? registerModel;
-   var response ;
+ var response ;
   @override
   Future<Either<Failure, RegisterModel>> registerInApp(
       {required String name,
@@ -20,7 +20,15 @@ class RegisterRepoImpl extends RegisterRepo {
       required String gender,
       required String password,
       required String confirmPassword}) async{
-      await  DioHelper.postData(url: EndPoints.registerPoint, data: {
+    print('iam here in repo 1');
+    print(EndPoints.registerPoint);
+    print(name);
+    print(email);
+    print(phone);
+    print(gender);
+    print(password);
+    print(confirmPassword);
+    await  DioHelper.postData(url: EndPoints.registerPoint, data: {
       'name': name,
       'email': email,
       'phone': phone,
@@ -28,14 +36,47 @@ class RegisterRepoImpl extends RegisterRepo {
       'password': password,
       'password_confirmation': confirmPassword,
     }).then((value) {
+      print('i am value');
       registerModel = RegisterModel.fromJson(value.data);
-       response =  right(registerModel);
-    }).catchError((error) {
-      if(error is DioException){
-        response =   left(ServerFailure.fromDioException(error));
-      }
-      // return left(ServerFailure(error.toString()));
+       response = registerModel;
+    }).catchError((error){
+
+      print(error.toString());
     });
-   return response ;
+    return response ;
   }
+  // Future<Either<Failure, RegisterModel>> registerInApp(
+  //     {required String name,
+  //       required String email,
+  //       required String phone,
+  //       required String gender,
+  //       required String password,
+  //       required String confirmPassword}) async{
+  //   try {
+  //     print('iam here in repo 1');
+  //     print(EndPoints.registerPoint);
+  //     print(name);
+  //     print(email);
+  //     print(phone);
+  //     print(gender);
+  //     print(password);
+  //     print(confirmPassword);
+  //     var value =  await  DioHelper.postData(url: EndPoints.registerPoint, data: {
+  //       'name': name,
+  //       'email': email,
+  //       'phone': phone,
+  //       'gender': gender,
+  //       'password': password,
+  //       'password_confirmation': confirmPassword,
+  //     });
+  //     print('iam here in repo 2');
+  //     registerModel = RegisterModel.fromJson(value.data);
+  //     print('iam here in repo 3');
+  //     return right(registerModel!);
+  //   } catch (e) {
+  //     print('iam here in failure');
+  //     return left(ServerFailure('iam here in failure'));
+  //
+  //   }
+  // }
 }
