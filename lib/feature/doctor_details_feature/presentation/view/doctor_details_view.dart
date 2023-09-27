@@ -1,5 +1,4 @@
-import 'package:clinic/core/constants/assets.dart';
-import 'package:clinic/core/constants/styles.dart';
+
 import 'package:clinic/feature/doctor_details_feature/presentation/view/widget/custom_time.dart';
 import 'package:clinic/feature/doctor_details_feature/presentation/doctor_details_cubit/doctor_details_cubit.dart';
 import 'package:clinic/feature/home/presentation/views/widgets/booking_successfully.dart';

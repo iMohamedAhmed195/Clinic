@@ -62,12 +62,12 @@ class _HomeTabState extends State<HomeTab> {
                                           ),
                                         ),
                                         builder: ((context) {
-                                          bool isContainerVisible = false;
-                                          void updateStatus() {
-                                            setState(() {
-                                              isContainerVisible =! isContainerVisible;
-                                            });
-                                          }
+                                          // bool isContainerVisible = false;
+                                          // void updateStatus() {
+                                          //   setState(() {
+                                          //     isContainerVisible =! isContainerVisible;
+                                          //   });
+                                          // }
                                           return Form(
                                             key: cubit.filterFormKey,
                                             child: Wrap(children: [

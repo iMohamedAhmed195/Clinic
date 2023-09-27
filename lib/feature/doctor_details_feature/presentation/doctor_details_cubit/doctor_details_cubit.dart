@@ -1,7 +1,5 @@
 
 import 'package:clinic/core/remote/DioHelper.dart';
-import 'package:clinic/core/services/network/local/cache_helper.dart';
-import 'package:clinic/core/services/network/local/enums.dart';
 import 'package:clinic/feature/doctor_details_feature/data/appoint_model/appoint_model.dart';
 import 'package:clinic/feature/doctor_details_feature/data/details_doctor_model/details_doctor_model.dart';
 import 'package:flutter/material.dart';

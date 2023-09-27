@@ -1,7 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:clinic/feature/doctor_details_feature/presentation/view/doctor_details_view.dart';
 import 'package:clinic/feature/home/presentation/cubit/home_cubit.dart';
-import 'package:clinic/feature/home/presentation/views/widgets/doctor_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

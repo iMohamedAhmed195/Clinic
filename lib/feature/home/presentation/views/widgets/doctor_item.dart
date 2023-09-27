@@ -3,12 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DoctorItem extends StatelessWidget {
-  DoctorItem(
-      {Key? key, required this.doctorName, required this.doctorSpecialization})
-      : super(key: key);
+  const DoctorItem({Key? key, required this.doctorName, required this.doctorSpecialization}) : super(key: key);
 
-  String doctorName;
-  String doctorSpecialization;
+  final String doctorName;
+  final String doctorSpecialization;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(

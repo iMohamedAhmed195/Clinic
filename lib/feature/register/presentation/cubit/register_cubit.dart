@@ -1,12 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:clinic/core/remote/DioHelper.dart';
 import 'package:clinic/core/remote/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
-
 import '../../data/models/register_model.dart';
-
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {

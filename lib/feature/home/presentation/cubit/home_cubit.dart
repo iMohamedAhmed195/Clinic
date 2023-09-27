@@ -6,8 +6,6 @@ import 'package:clinic/core/remote/DioHelper.dart';
 import 'package:clinic/core/remote/endpoints.dart';
 import 'package:clinic/feature/home/data/models/get_all_doctor_model.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:clinic/feature/home/data/models/get_all_doctors_model.dart';
 import 'package:clinic/feature/profile_feature/profile_screen.dart';
 import 'package:clinic/feature/search_feature/view/search_view.dart';
 import 'package:flutter/material.dart';

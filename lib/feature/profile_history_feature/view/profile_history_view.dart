@@ -19,7 +19,6 @@ class ProfileHistoryView extends StatelessWidget {
         listener: (context, state) {
         },
         builder: (context, state) {
-          var cubit = ProfileHistoryCubit.get(context);
           return Scaffold(
             body: SafeArea(
                 child: Padding(

@@ -1,4 +1,4 @@
-import 'package:clinic/core/constants/assets.dart';
+
 import 'package:clinic/feature/doctor_details_feature/presentation/view/doctor_details_view.dart';
 import 'package:clinic/feature/search_feature/search_cubit/search_cubit.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -96,7 +96,7 @@ class SearchView extends StatelessWidget {
                                         decoration:  BoxDecoration(
                                             borderRadius:BorderRadius.circular(10)
                                         ),
-                                        child:Image(image: NetworkImage(cubit.searchModel!.data![index].photo! ?? '' ,))
+                                        child:Image(image: NetworkImage(cubit.searchModel!.data![index].photo!  ,))
 
                                     )
                                   ],),
@@ -106,7 +106,7 @@ class SearchView extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        cubit.searchModel!.data![index].name! ?? '',
+                                        cubit.searchModel!.data![index].name! ,
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w700
@@ -114,7 +114,7 @@ class SearchView extends StatelessWidget {
                                       ),
 
                                       Text(
-                                        cubit.searchModel!.data![index].degree! ?? '',
+                                        cubit.searchModel!.data![index].degree! ,
                                         style: TextStyle(
                                             color: Color(0xff030E19).withOpacity(0.7),
                                             fontSize: 16,
