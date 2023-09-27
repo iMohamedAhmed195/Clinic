@@ -2,27 +2,29 @@ import 'package:clinic/core/constants/assets.dart';
 import 'package:clinic/core/constants/styles.dart';
 import 'package:clinic/feature/doctor_details_feature/presentation/view/widget/custom_time.dart';
 import 'package:clinic/feature/doctor_details_feature/presentation/doctor_details_cubit/doctor_details_cubit.dart';
+import 'package:clinic/feature/home/presentation/views/widgets/booking_successfully.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DoctorDetailsView extends StatelessWidget {
-  const DoctorDetailsView({super.key});
+  const DoctorDetailsView({super.key, required this.doctorId,});
+  final String doctorId ;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DoctorDetailsCubit()..getDetails(),
+      create: (context) => DoctorDetailsCubit()..getDetails(doctorId: doctorId),
       child: BlocConsumer<DoctorDetailsCubit, DoctorDetailsState>(
         listener: (context, state) {
-          if(state is ChangeTimeColor){
-            print('hi');
+          if(state is AppointSuccessState){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>const BookingSuccessfullyScreen()));
           }
         },
         builder: (context, state) {
           var cubit = DoctorDetailsCubit.get(context);
           return
             Scaffold(
-              backgroundColor: Styles.kColor,
               body: ConditionalBuilder(
                 condition: state is !GetDetailsDoctorLoadingState,
                 builder: (context){
@@ -39,7 +41,30 @@ class DoctorDetailsView extends StatelessWidget {
                               bottomRight: Radius.circular(20),
                             )
                         ),
-                        child: Image.asset(AssetsData.profile,fit: BoxFit.fitWidth,),
+                        child:  Image(image: NetworkImage(cubit.doctorDetailsModel!.data!.photo!,),fit: BoxFit.fitWidth,),
+                        //  Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 50),
+                        //   child: Container(
+                        //     width: 50,
+                        //     height: 50,
+                        //     decoration: BoxDecoration(
+                        //         color: Colors.transparent,
+                        //       borderRadius: BorderRadius.circular(25),
+                        //       boxShadow: [
+                        //         BoxShadow(
+                        //         color: Colors.white,
+                        //           blurRadius: 20,
+                        //           spreadRadius: 2
+                        //       )]
+                        //     ),
+                        //     child: IconButton(
+                        //         onPressed: (){
+                        //           Navigator.pop(context);
+                        //         },
+                        //         icon: Icon(Icons.close , color: Colors.white,)
+                        //     ),
+                        //   ),
+                        // ),
                       ),
                       Opacity(
                         opacity: 0.7,
@@ -148,7 +173,9 @@ class DoctorDetailsView extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(6),
                                   color: const Color(0xff174068)),
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  cubit.postAppoint(doctorId: doctorId);
+                                },
                                 child: const Text(
                                   'Book an appointment',
                                   style: TextStyle(color: Colors.white),

@@ -3,11 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DoctorItem extends StatelessWidget {
-  DoctorItem({
-    Key? key,
-    required this.doctorName,
-    required this.doctorSpecialization
-  }) : super(key: key);
+  DoctorItem(
+      {Key? key, required this.doctorName, required this.doctorSpecialization})
+      : super(key: key);
 
   String doctorName;
   String doctorSpecialization;
@@ -47,9 +45,7 @@ class DoctorItem extends StatelessWidget {
               height: 5.h,
             ),
             Text(
-              '''
- $doctorSpecialization
- ''',
+              '$doctorSpecialization',
               style: GoogleFonts.inter(
                   color: Colors.grey,
                   fontSize: 12.sp,
@@ -76,7 +72,9 @@ class DoctorItem extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 4.h,),
+            SizedBox(
+              height: 4.h,
+            ),
           ],
         ),
       ),

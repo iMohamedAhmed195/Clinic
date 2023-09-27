@@ -1,13 +1,14 @@
+import 'package:clinic/core/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// ignore: must_be_immutable
-class CustomButton extends StatelessWidget {
-  CustomButton({super.key, required this.text, required this.onTap});
 
-  VoidCallback onTap;
-  String text;
+class CustomButton extends StatelessWidget {
+  const CustomButton({super.key, required this.text, required this.onTap});
+
+ final  VoidCallback onTap;
+ final  String text;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFF5A55CA),
+          color: Styles.kPrimaryColor,
           borderRadius: BorderRadius.circular(4.r),
         ),
         width: double.infinity,

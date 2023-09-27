@@ -1,7 +1,10 @@
-import 'package:clinic/core/services/dio_helper.dart';
-import 'package:clinic/core/services/end_point.dart';
+import 'package:bloc/bloc.dart';
+import 'package:clinic/core/remote/DioHelper.dart';
+import 'package:clinic/core/remote/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
+
 import '../../data/models/register_model.dart';
 
 part 'register_state.dart';
@@ -10,6 +13,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
 
   static RegisterCubit get(context)=>BlocProvider.of(context);
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  var formRegisterKey = GlobalKey<FormState>();
 
   bool isMaleChecked=false;
   bool isFemaleChecked=false;
@@ -30,29 +40,19 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   RegisterModel? registerModel;
-  void register({
-    required String name,
-    required String email,
-    required String phone,
-    required String password,
-    required String passwordConfirmation,
-  }) {
+  void register() {
     emit(RegisterLoadingState());
-    DioHelper.postData(url: EndPoints.registerUrl, data: {
-      'name' : name,
-      'email': email,
-      'phone' : phone,
-      'password': password,
-      'password_confirmation' : passwordConfirmation,
+    DioHelper.PostData(url: registerUrl, data: {
+      'name' : nameController.text,
+      'email': emailController.text,
+      'phone' : phoneController.text,
+      'password': passwordController.text,
+      'password_confirmation' : confirmPasswordController.text,
       'gender' : selectedGender
     }).then((value) {
       registerModel = RegisterModel.fromJson(value.data);
-      //print(loginModel?.token);
-      //print(loginModel?.data?.id);
-      print(value.data);
       emit(RegisterSuccessState());
     }).catchError((error) {
-      print(error.toString());
       emit(RegisterErrorState());
     });
   }
@@ -60,7 +60,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   bool isPassword=true;
   void changePasswordVisibility(){
     isPassword =!  isPassword;
-
     suffix=isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
     emit(ChangePasswordVisibilityState());
 

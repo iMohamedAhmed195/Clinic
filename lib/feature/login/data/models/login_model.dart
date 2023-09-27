@@ -1,3 +1,5 @@
+import 'package:clinic/core/remote/http/const.dart';
+
 class LoginModel {
   String? message;
   Data? data;
@@ -33,6 +35,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     token = json['token'];
+    authToken = token;
     username = json['username'];
   }
 

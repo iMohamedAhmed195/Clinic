@@ -18,3 +18,14 @@ class GetDetailsDoctorErrorState extends DoctorDetailsState {
 
   GetDetailsDoctorErrorState(this.error);
 }
+class AppointLoadingState extends DoctorDetailsState {}
+class AppointSuccessState extends DoctorDetailsState {
+  final  AppointModel appointModel ;
+
+  AppointSuccessState(this.appointModel);
+}
+class AppointErrorState extends DoctorDetailsState {
+  final String error;
+
+  AppointErrorState(this.error);
+}

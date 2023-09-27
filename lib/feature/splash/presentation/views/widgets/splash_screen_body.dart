@@ -1,6 +1,9 @@
-import 'package:clinic/core/constants/assets.dart';
-import 'package:clinic/feature/splash_feature/splash_view_module/Widget/sliding_text.dart';
+import 'package:clinic/feature/splash/presentation/views/widgets/sliding_text.dart';
 import 'package:flutter/material.dart';
+
+
+import '../../../../../core/constants/assets.dart';
+import '../../../../on_boarding/presentation/views/on_boarding_screen.dart';
 
 
 
@@ -31,18 +34,19 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
   void initSlidingAnimations(){
-  animationController =
-      AnimationController(vsync: this, duration: const Duration(seconds: 1));
-  slidingAnimation =
-      Tween<Offset>(begin: const Offset(0, 7), end: Offset.zero)
-          .animate(animationController);
-  animationController.forward();
-}
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    slidingAnimation =
+        Tween<Offset>(begin: const Offset(0, 7), end: Offset.zero)
+            .animate(animationController);
+    animationController.forward();
+  }
 
   void initNavigateToHomeView(){
     Future.delayed(const Duration(seconds: 2),(){
-
-       // GoRouter.of(context).push(AppRouter.kRegister);
+      Navigator.push(context, MaterialPageRoute(builder: (context){
+        return const OnBoardingScreen();
+      }));
     });
   }
 

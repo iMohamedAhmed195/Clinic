@@ -1,8 +1,8 @@
 import 'package:buildcondition/buildcondition.dart';
+import 'package:clinic/core/constants/styles.dart';
 import 'package:clinic/core/services/network/local/cache_helper.dart';
 import 'package:clinic/core/services/network/local/enums.dart';
-import 'package:clinic/core/widget/components/components.dart';
-import 'package:clinic/core/widget/components/custom_button.dart';
+import 'package:clinic/feature/home/presentation/views/home_screen.dart';
 import 'package:clinic/feature/register/presentation/cubit/register_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,27 +12,11 @@ import 'package:email_validator/email_validator.dart';
 
 import '../../../login/presentation/views/login_page.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
-}
 
-class _RegisterScreenState extends State<RegisterScreen> {
-
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final phoneController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
-  var formRegisterKey = GlobalKey<FormState>();
-  late RegisterCubit cubit;
-  @override
-  void initState() {
-    super.initState();
-    cubit = RegisterCubit.get(context);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +32,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             );
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const LoginScreen();
+              return const HomeScreen();
             }));
             CacheHelper.putString(
                     key: MySharedKeys.token,
                     value:
                         RegisterCubit.get(context).registerModel?.data?.token)
                 .then((value) {
-
             });
           }
           if (state is RegisterErrorState) {
@@ -65,10 +48,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           }
         },
         builder: (context, state) {
+         var  cubit = RegisterCubit.get(context);
           return SingleChildScrollView(
             child: SafeArea(
               child: Form(
-                key: formRegisterKey,
+                key: cubit.formRegisterKey,
                 child: Column(
                   children: [
                     SizedBox(
@@ -96,32 +80,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       height: 10.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8.0.r),
-                      child: defaultFormField(
-                        type: TextInputType.name,
-                        label: 'Name',
-                        controller: nameController,
-                        hint: 'Name',
-                        validate: (value) {
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 20.0, bottom: 30),
+                      child: TextFormField(
+                        validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'please add your name';
                           }
                           return null;
                         },
-                        prefix: null,
+                        decoration: InputDecoration(
+                            enabledBorder: buildOutlineInputBorder(),
+                            focusedBorder: buildOutlineInputBorder(),
+                            hintText: 'Name'),
+                        keyboardType: TextInputType.name,
+                        controller: cubit.nameController,
                       ),
                     ),
+
                     SizedBox(
                       height: 10.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8.0.r),
-                      child: defaultFormField(
-                        type: TextInputType.emailAddress,
-                        label: 'Email',
-                        controller: emailController,
-                        hint: 'Email',
-                        validate: (value) {
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 20.0, bottom: 30),
+                      child: TextFormField(
+                        validator: (value){
                           if (value == null || value.isEmpty) {
                             return 'please add your email';
                           }
@@ -131,20 +115,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                           return null;
                         },
-                        prefix: null,
+                        decoration: InputDecoration(
+                            enabledBorder: buildOutlineInputBorder(),
+                            focusedBorder: buildOutlineInputBorder(),
+                            hintText: 'email'),
+                        keyboardType: TextInputType.emailAddress,
+                        controller: cubit.emailController,
                       ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8.0.r),
-                      child: defaultFormField(
-                        type: TextInputType.phone,
-                        label: 'Phone',
-                        controller: phoneController,
-                        hint: 'Phone',
-                        validate: (value) {
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 20.0, bottom: 30),
+                      child: TextFormField(
+                        validator:(value) {
                           if (value == null || value.isEmpty) {
                             return 'please add your Phone';
                           }
@@ -154,66 +140,67 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                           return null;
                         },
-                        prefix: null,
+                        decoration: InputDecoration(
+                            enabledBorder: buildOutlineInputBorder(),
+                            focusedBorder: buildOutlineInputBorder(),
+                            hintText: 'Phone'),
+                        keyboardType: TextInputType.phone,
+                        controller: cubit.phoneController,
                       ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8.0.r),
-                      child: defaultFormField(
-                          label: 'Password',
-                          suffix: RegisterCubit.get(context).suffix,
-                          isPassword: RegisterCubit.get(context).isPassword,
-                          suffixPressed: () {
-                            RegisterCubit.get(context)
-                                .changePasswordVisibility();
-                          },
-                          type: TextInputType.visiblePassword,
-                          controller: passwordController,
-                          hint: 'Password',
-                          prefix: null,
-                          validate: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter password';
-                            }
-                            //         RegExp regex = RegExp(
-                            //         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,}$');
-                            //         if (!regex.hasMatch(value)) {
-                            //         return
-                            //           ''' password must contain at least one capital letter and
-                            // one special character''';
-                            //         }
-                            return null;
-                          }),
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 20.0, bottom: 30),
+                      child: TextFormField(
+                        validator: (value){
+                          if(value!.length <=6)
+                          {
+                            return 'please enter right password';
+                          }
+                          return null ;
+                        },
+
+                        decoration: InputDecoration(
+                          enabledBorder: buildOutlineInputBorder(),
+                          focusedBorder: buildOutlineInputBorder(),
+                          hintText: 'password',
+
+                        ),
+                        obscureText: true,
+                        keyboardType: TextInputType.visiblePassword,
+                        controller: cubit.passwordController,
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8.0.r),
-                      child: defaultFormField(
-                          label: 'Confirm Password',
-                          suffix: RegisterCubit.get(context).suffix,
-                          isPassword: RegisterCubit.get(context).isPassword,
-                          suffixPressed: () {
-                              RegisterCubit.get(context).changePasswordVisibility();
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 20.0, bottom: 30),
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter password';
+                          }
+                          if (value != cubit.confirmPasswordController.text){
+                            return 'confirm password must match password';
+                          }
+                          return null;
+                        },
 
-                          },
-                          type: TextInputType.visiblePassword,
-                          controller: confirmPasswordController,
-                          hint: 'Confirm Password',
-                          prefix: null,
-                          validate: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter password';
-                            }
-                             if (value != confirmPasswordController.text){
-                               return 'confirm password must match password';
+                        decoration: InputDecoration(
+                          enabledBorder: buildOutlineInputBorder(),
+                          focusedBorder: buildOutlineInputBorder(),
+                          hintText: 'Confirm Password',
 
-                             }
-                          }),
+                        ),
+                        obscureText: true,
+                        keyboardType: TextInputType.visiblePassword,
+                        controller: cubit.confirmPasswordController,
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,
@@ -291,31 +278,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        height: 55.h,
-                        child: BuildCondition(
-                          condition: state is! RegisterLoadingState,
-                          builder: (context) => CustomButton(
-                            text: 'Register',
-                            onTap: () {
-                              if (formRegisterKey.currentState!.validate()) {
-                                FocusScope.of(context).unfocus();
-                                cubit.register(
-                                    name: nameController.text,
-                                    email: emailController.text,
-                                    phone: phoneController.text,
-                                    password: passwordController.text,
-                                    passwordConfirmation:
-                                        confirmPasswordController.text);
-                              } else {
-                                FocusScope.of(context).unfocus();
-                              }
-                            },
+                    BuildCondition(
+                      condition: state is! RegisterLoadingState,
+                      builder: (context) =>Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: 48,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            color:  Styles.kPrimaryColor),
+                        child: MaterialButton(
+                          onPressed: () {
+                            if (cubit.formRegisterKey.currentState!.validate()) {
+                              FocusScope.of(context).unfocus();
+                              cubit.register();
+                            } else {
+                              FocusScope.of(context).unfocus();
+                            }
+                          },
+                          child: const Text(
+                            'Register',
+                            style: TextStyle(color: Colors.white),
                           ),
-                          fallback: (context) =>
-                              const Center(child: CircularProgressIndicator()),
-                        )),
+                        ),
+                      ),
+                      fallback: (context) =>
+                          const Center(child: CircularProgressIndicator()),
+                    ),
                   ],
                 ),
               ),
@@ -324,5 +312,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         },
       ),
     );
+  }
+  buildOutlineInputBorder() {
+
+    return OutlineInputBorder(
+
+        borderSide: const BorderSide(color: Styles.kColor),
+        borderRadius: BorderRadius.circular(6));
   }
 }

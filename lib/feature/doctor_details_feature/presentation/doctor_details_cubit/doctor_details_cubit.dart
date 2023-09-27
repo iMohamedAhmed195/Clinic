@@ -1,4 +1,8 @@
-import 'package:clinic/core/services/dio_helper.dart';
+
+import 'package:clinic/core/remote/DioHelper.dart';
+import 'package:clinic/core/services/network/local/cache_helper.dart';
+import 'package:clinic/core/services/network/local/enums.dart';
+import 'package:clinic/feature/doctor_details_feature/data/appoint_model/appoint_model.dart';
 import 'package:clinic/feature/doctor_details_feature/data/details_doctor_model/details_doctor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,23 +15,25 @@ class DoctorDetailsCubit extends Cubit<DoctorDetailsState> {
   static DoctorDetailsCubit get(context) => BlocProvider.of(context);
 
   DoctorDetailsModel? doctorDetailsModel ;
+  AppointModel? appointModel ;
 
   List<int> lastTime = [];
    int? startDate;
    int? endDate ;
 
-  getDetails()async{
+  getDetails({required String doctorId})async{
     emit(GetDetailsDoctorLoadingState());
     DioHelper.getData(
-      url: '/doctor/show/3',
-      token:'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3ZjYXJlLmludGVncmF0aW9uMjUuY29tL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjk1NDY4MTY4LCJleHAiOjE2OTU0NzE3NjgsIm5iZiI6MTY5NTQ2ODE2OCwianRpIjoiSms2Ujl4Wnh1bFJ2RXVPVSIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.SegJeEtgbA-g7H3Yy9VjX8K1GtdlrbhLCv3CItJ3QWM'
+      url: '/doctor/show/${doctorId}',
     ).then((value) {
       doctorDetailsModel = DoctorDetailsModel.fromJson(value.data);
        startDate = int.parse(doctorDetailsModel!.data!.startTime!.split(':')[0]);
        endDate = int.parse(doctorDetailsModel!.data!.endTime!.split(':')[0]);
+
       for (int i = startDate! ; i <= endDate! ; i++ ){
         lastTime.add(i);
       }
+
       print(lastTime);
       initFalse();
       emit(GetDetailsDoctorSuccessState(doctorDetailsModel!));
@@ -67,8 +73,6 @@ class DoctorDetailsCubit extends Cubit<DoctorDetailsState> {
 
   }
 
-  //bool isTime = false ;
-
   List<bool> isTime=[];
 
   initFalse(){
@@ -77,9 +81,43 @@ class DoctorDetailsCubit extends Cubit<DoctorDetailsState> {
     }
     print(isTime);
   }
-  changeColor( int index){
+  int oldIndex =0  ;
+  changeColor(int index){
 
-      isTime[index]=!isTime[index];
-      emit(ChangeTimeColor());
+        if(index != oldIndex)
+        {
+          print(index);
+          isTime[index] = !isTime[index];
+          oldIndex = index ;
+          emit(ChangeTimeColor());
+        }else{
+          print(index);
+          isTime[index] = !isTime[index];
+          oldIndex = index ;
+          emit(ChangeTimeColor());
+        }
+  }
+
+
+
+  postAppoint({required String doctorId})async{
+    emit(AppointLoadingState());
+    DioHelper.PostData(
+      url: '/appointment/store',
+      data: {
+        'doctor_id':doctorId,
+        'start_time':'${splitStartDate}-${lastTime[oldIndex]}'
+
+      }
+    ).then((value) {
+      appointModel = AppointModel.fromJson(value.data);
+      emit(AppointSuccessState(appointModel!));
+
+    })
+        .catchError((error) {
+      print(error.toString());
+      emit(AppointErrorState(error.toString()));
+    });
   }
 }
+

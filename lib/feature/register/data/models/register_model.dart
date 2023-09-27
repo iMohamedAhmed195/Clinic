@@ -8,19 +8,19 @@ class RegisterModel {
 
   RegisterModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     status = json['status'];
     code = json['code'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['message'] = message;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['status'] = status;
-    data['code'] = code;
+    data['status'] = this.status;
+    data['code'] = this.code;
     return data;
   }
 }
@@ -37,9 +37,9 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
-    data['token'] = token;
-    data['username'] = username;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['token'] = this.token;
+    data['username'] = this.username;
     return data;
   }
 }

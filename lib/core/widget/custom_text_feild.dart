@@ -17,7 +17,6 @@ class CustomTextField extends StatelessWidget {
           padding: const EdgeInsets.only(
               left: 20.0, right: 20.0, bottom: 30),
           child: TextFormField(
-
             validator: (value) {
               if (value!.isEmpty) {
                 return textValidate;

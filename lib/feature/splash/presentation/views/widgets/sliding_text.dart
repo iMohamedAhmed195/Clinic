@@ -12,11 +12,12 @@ class SlidingText extends StatelessWidget {
           return SlideTransition(
               position: slidingAnimation,
               child: const Text(
-                "Make Yor Tasks",
+                "Treat Yourself",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold
+                  color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold
                 ),
               ));
         });
